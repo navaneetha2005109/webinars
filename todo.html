@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #c5f3f3;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+    .todo-container {
+      background: rgb(239, 244, 244);
+      padding: 30px;
+      border-radius: 10px;
+      width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .input-area {
+      display: flex;
+      margin-bottom: 20px;
+    }
+    .input-area input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .input-area button {
+      padding: 10px;
+      background: #28a745;
+      color: white;
+      border: none;
+      font-size: 16px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #f9f9f9;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .logout {
+      margin-top: 15px;
+      background: #dc3545;
+    }
+  </style>
+</head>
+<body>
+
+<div class="todo-container">
+  <h2>To-Do List</h2>
+  <div class="input-area">
+    <input type="text" id="taskInput" placeholder="Enter a task" />
+    <button onclick="addTask()">Add</button>
+  </div>
+  <ul id="taskList"></ul>
+  <button class="logout" onclick="logout()">Logout</button>
+</div>
+
+<script>
+  // Block if not logged in
+  if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "login.html";
+  }
+
+  function addTask() {
+    const taskInput = document.getElementById("taskInput");
+    const task = taskInput.value.trim();
+    if (task === "") return;
+
+    const li = document.createElement("li");
+    li.innerHTML = `${task} <button onclick="this.parentElement.remove()">Delete</button>`;
+    document.getElementById("taskList").appendChild(li);
+    taskInput.value = "";
+  }
+
+  function logout() {
+    localStorage.removeItem("loggedIn");
+    window.location.href = "login.html";
+  }
+</script>
+
+</body>
+</html>
